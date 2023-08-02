@@ -1,5 +1,5 @@
 # The path where cmake config files are installed
-set(OPTIMA_INSTALL_CONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/Optima)
+set(OPTIMA_INSTALL_CONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake)
 
 install(EXPORT OptimaTargets
     FILE OptimaTargets.cmake
