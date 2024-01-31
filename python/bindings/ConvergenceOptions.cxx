@@ -1,6 +1,6 @@
 // Optima is a C++ library for solving linear and non-linear constrained optimization problems.
 //
-// Copyright © 2020-2023 Allan Leal
+// Copyright © 2020-2024 Allan Leal
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -27,6 +27,5 @@ void exportConvergenceOptions(py::module& m)
     py::class_<ConvergenceOptions>(m, "ConvergenceOptions")
         .def(py::init<>())
         .def_readwrite("tolerance", &ConvergenceOptions::tolerance)
-        .def_readwrite("requires_at_least_one_iteration", &ConvergenceOptions::requires_at_least_one_iteration)
         ;
 }

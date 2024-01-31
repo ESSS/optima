@@ -8,7 +8,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(CCache)
 
 # Set the name of the project
-project(Optima VERSION 0.4.0 LANGUAGES CXX)
+project(Optima VERSION 0.5.0 LANGUAGES CXX)
 
 # Enable parallel build if MSVC is used
 add_compile_options($<$<CXX_COMPILER_ID:MSVC>:/MP>)
@@ -68,7 +68,16 @@ add_subdirectory(Optima)
 
 # Build the python wrappers
 if(OPTIMA_BUILD_PYTHON)
+    find_package(Python COMPONENTS Interpreter Development)
     find_package(pybind11 REQUIRED)
+    find_program(PYBIND11_STUBGEN pybind11-stubgen)
+    if(NOT pybind11_FOUND)
+        message(WARNING "Could not find pybind11. The Python package optima will not be built!")
+        set(OPTIMA_BUILD_PYTHON OFF)
+    endif()
+    if(NOT PYBIND11_STUBGEN)
+        message(WARNING "Could not find pybind11-stubgen (available via pip or conda). There will be no stubs generated for the python package optima.")
+    endif()
     add_subdirectory(python)
 endif()
 

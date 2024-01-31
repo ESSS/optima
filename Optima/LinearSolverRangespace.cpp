@@ -1,6 +1,6 @@
 // Optima is a C++ library for solving linear and non-linear constrained optimization problems.
 //
-// Copyright © 2020-2023 Allan Leal
+// Copyright © 2020-2024 Allan Leal
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -186,7 +186,7 @@ struct LinearSolverRangespace::Impl
 
         M31.noalias() = Sbep - barHbep - barSbene*Hnep + Tbebi*Hbip;
         M32.noalias() = Tbebi*diag(Hbibi);
-        M33 = diag(inv(-Hbebe)); M33 -= Tbebe;
+        M33 = diag(inv(Hbebe)); M33 += Tbebe;
         M34.noalias() = Sbeni;
 
         M41.noalias() = Hnip - tr(Sbini)*Hbip;

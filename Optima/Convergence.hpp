@@ -1,6 +1,6 @@
 // Optima is a C++ library for solving linear and non-linear constrained optimization problems.
 //
-// Copyright © 2020-2023 Allan Leal
+// Copyright © 2020-2024 Allan Leal
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ public:
     auto update(const ResidualErrors& E) -> void;
 
     /// Return `true` if the optimization calculation has converged.
-    auto converged() const -> bool;
+    auto converged(ConvergenceCheckArgs const& args) const -> bool;
 
     /// Return the current convergence rate.
     auto rate() const -> double;

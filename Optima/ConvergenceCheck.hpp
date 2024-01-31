@@ -15,20 +15,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-// pybind11 includes
-#include "pybind11.hxx"
+#pragma once
+
+// C++ includes
+#include <functional>
 
 // Optima includes
-#include <Optima/Canonicalizer.hpp>
-using namespace Optima;
+#include <Optima/MasterDims.hpp>
+#include <Optima/MasterVector.hpp>
+#include <Optima/ResidualErrors.hpp>
+#include <Optima/ResidualFunction.hpp>
+#include <Optima/Result.hpp>
 
-void exportCanonicalizer(py::module& m)
+namespace Optima {
+
+/// Used to store arguments for a custom additional convergence check.
+struct ConvergenceCheckArgs
 {
-    py::class_<Canonicalizer>(m, "Canonicalizer")
-        .def(py::init<>())
-        .def(py::init<const MasterMatrix&>())
-        .def(py::init<const Canonicalizer&>())
-        .def("update", &Canonicalizer::update)
-        .def("canonicalMatrix", &Canonicalizer::canonicalMatrix, PYBIND_ENSURE_MUTUAL_EXISTENCE)
-        ;
-}
+    MasterDims const& dims;
+    ResidualFunction const& F;
+    ResidualErrors const& E;
+    MasterVector const& uo;
+    MasterVector const& u;
+    Result const& result;
+};
+
+/// A type that describes a custom additional convergence check.
+using ConvergenceCheck = std::function<bool(ConvergenceCheckArgs const&)>;
+
+} // namespace Optima
